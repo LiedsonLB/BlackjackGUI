@@ -20,7 +20,7 @@ O código incorpora alguns padrões de projeto fundamentais para promover uma es
    - A classe `CSVDatabase` é implementada como um singleton, garantindo que apenas uma instância seja criada para salvar resultados e adicionar ao histórico.
 
 2. **Observer Pattern:**
-   - O uso de `IntegerProperty` e `StringProperty` do JavaFX segue o padrão Observer, permitindo atualizações dinâmicas na interface do usuário com base em alterações nos valores associados.
+   - O uso de `IntegerProperty` do JavaFX segue o padrão Observer, permitindo atualizações dinâmicas na interface do usuário com base em alterações nos valores associados.
 
 3. **Composite Pattern:**
    - A relação entre `Player` e `Card` sugere a aplicação do padrão Composite, onde `Player` representa a parte composta, contendo uma lista de `Card`, as partes individuais.
