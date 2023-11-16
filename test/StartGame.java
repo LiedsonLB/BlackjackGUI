@@ -14,5 +14,6 @@ public class StartGame {
     @BeforeEach
     void setUp() {
         game = new Game(new Stage(), new Scene(new VBox()));
+        game.toCSV();
     }
 }

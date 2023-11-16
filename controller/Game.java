@@ -9,9 +9,12 @@ import java.util.Map;
 import java.util.ListIterator;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -23,13 +26,13 @@ import db.CSVDatabase;
 import model.Card;
 import model.Player;
 import model.Exceptios.GameSaveResultException;
-import view.GameHistory;
 
 public class Game extends BorderPane {
     private Stage menu;
     private Scene scene;
     private Button backBtn;
     private IntegerProperty sumCardsProperty = new SimpleIntegerProperty(0);
+    private StringProperty playerRoundProperty = new SimpleStringProperty();
     private Text mensage;
     private HBox cardBox;
     private Player player1;
@@ -60,34 +63,34 @@ public class Game extends BorderPane {
         sumCardsProperty.set(0);
         actionBtn.setVisible(true);
         round = 1;
-    
+
         // Adiciona as cartas iniciais ao jogador atual
         Card card1 = new Card();
         Card card2 = new Card();
-    
+
         if (card1.getNumber().equals(card2.getNumber()) && card1.getNaipe().equals(card2.getNaipe())) {
             Card newCard = new Card();
             card2 = newCard;
         }
-    
+
         int num1 = cardValues.get(card1.getNumber());
         int num2 = cardValues.get(card2.getNumber());
-    
+
         if (num1 + num2 == 22) {
             num2 = 1;
         }
-    
+
         currentPlayer.addCard(card1);
         currentPlayer.addCard(card2);
         currentPlayer.setSumCards(num1 + num2);
         sumCardsProperty.set(currentPlayer.getSumCards());
-    
+
         // Adiciona as cartas do jogador 1 na cardBox
         cardBox.getChildren().addAll(currentPlayer.getCards());
 
         // Adiciona as cartas do jogador 2 na cardBox
         cardBox.getChildren().addAll(player2.getCards());
-    }    
+    }
 
     private void initializeGameUI() {
         setPrefSize(800, 600);
@@ -95,20 +98,49 @@ public class Game extends BorderPane {
 
         backBtn = new Button("Sair");
 
-        StringBuilder convertStringResul = new StringBuilder();
-        convertStringResul.append(sumCardsProperty.get());
-        String resulString = convertStringResul.toString();
+        // altera em tempo real o valor da pontuação
+        String resulString = new String();
         Text resul = new Text(50, 100, resulString);
         resul.getStyleClass().add("resulSum");
-        
-        // altera em tempo real o valor da pontuação
         sumCardsProperty.bindBidirectional(new SimpleIntegerProperty(sumCardsProperty.get()));
         resul.textProperty().bind(sumCardsProperty.asString());
 
+        // altera em tempo real o jogador da partida
+        StringBuilder convertingStringPlayerRound = new StringBuilder();
+        convertingStringPlayerRound.append(currentPlayer.getName());
+        String playerRoundString = "Rodada do " + convertingStringPlayerRound.toString();
+        Text playerRound = new Text(50, 100, playerRoundString);
+        playerRound.getStyleClass().add("playerRound");
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(javafx.scene.paint.Color.WHITE);
+        dropShadow.setRadius(3);
+        dropShadow.setSpread(10);
+        playerRound.setEffect(dropShadow);
+        playerRoundProperty.bindBidirectional(new SimpleStringProperty(currentPlayer.getName()));
+        playerRound.textProperty().bind(playerRoundProperty);
+
+        VBox textoGameInfo = new VBox(10);
+        HBox pontuacaoText = new HBox(5);
+        pontuacaoText.setAlignment(Pos.CENTER);
+        Text textPontos = new Text(50, 100, "Pontos");
+        textPontos.getStyleClass().add("resulSum");
+        pontuacaoText.getChildren().addAll(resul, textPontos);
+        textoGameInfo.getChildren().addAll(playerRound, pontuacaoText);
+        textoGameInfo.setAlignment(Pos.CENTER);
+
         HBox optionsBtn = new HBox(10);
-        optionsBtn.getChildren().addAll(backBtn, resul);
+        optionsBtn.getChildren().addAll(backBtn, textoGameInfo);
         optionsBtn.setTranslateX(10);
         optionsBtn.setTranslateY(10);
+        textoGameInfo.getStyleClass().add("textoGameInfo");
+        textoGameInfo.setTranslateY(20);
+        textoGameInfo.setTranslateX(-20);
+
+        // alinhamento do textoGameInfo dentro do HBox
+        HBox.setHgrow(textoGameInfo, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(backBtn, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(optionsBtn, javafx.scene.layout.Priority.ALWAYS);
+        optionsBtn.setAlignment(Pos.CENTER);
 
         backBtn.getStyleClass().add("backBtn");
 
@@ -162,12 +194,13 @@ public class Game extends BorderPane {
         int num1 = cardValues.get(card1.getNumber());
         int num2 = cardValues.get(card2.getNumber());
 
-        // se a soma das duas primeiras cartas for 22 quer dizer que tem 2 Ás e um deve valer 1
+        // se a soma das duas primeiras cartas for 22 quer dizer que tem 2 Ás e um deve
+        // valer 1
         if (num1 + num2 == 22) {
             num2 = 1;
         }
 
-        // somando as  duas cartas e adicionando-as na mesa
+        // somando as duas cartas e adicionando-as na mesa
         currentPlayer.addCard(card1);
         currentPlayer.addCard(card2);
         currentPlayer.setSumCards(num1 + num2);
@@ -219,12 +252,12 @@ public class Game extends BorderPane {
                     break;
                 }
             }
-            
+
             if (cardMatched) {
                 sumCardsProperty.set(sumCardsProperty.get() + newCardValue);
             } else {
                 cardBox.getChildren().add(newCard);
-            
+
                 if (sumCardsProperty.get() < 12 && cardValues.get(newCard.getNumber()) == 1) {
                     int newNum = 11;
                     sumCardsProperty.set(currentPlayer.getSumCards() + newNum);
@@ -267,26 +300,26 @@ public class Game extends BorderPane {
     private void switchPlayer() {
         currentPlayer = (currentPlayer == player1) ? player2 : player1;
         round++;
-    
+
         // Limpa o cardBox antes de adicionar as novas cartas
         cardBox.getChildren().clear();
-    
+
         if (currentPlayer.getCards().isEmpty()) {
             // Adiciona duas novas cartas para o segundo jogador na primeira rodada dele
             Card card1 = new Card();
             Card card2 = new Card();
-    
+
             // Certifica de que as cartas do segundo jogador não são iguais
             while (card1.getNumber().equals(card2.getNumber()) && card1.getNaipe().equals(card2.getNaipe())) {
                 card2 = new Card();
             }
-    
+
             currentPlayer.addCard(card1);
             currentPlayer.addCard(card2);
-    
+
             int num1 = cardValues.get(card1.getNumber());
             int num2 = cardValues.get(card2.getNumber());
-    
+
             if (num1 + num2 == 22) {
                 num2 = 1;
             }
@@ -294,10 +327,10 @@ public class Game extends BorderPane {
             if (currentPlayer.getSumCards() > 21) {
                 System.out.println("salvando apos 21");
             }
-    
+
             currentPlayer.setSumCards(num1 + num2);
             sumCardsProperty.set(currentPlayer.getSumCards());
-    
+
             // Adiciona as cartas do jogador 1 ao cardBox
             cardBox.getChildren().addAll(currentPlayer.getCards());
 
@@ -307,7 +340,7 @@ public class Game extends BorderPane {
     }
 
     private String determineWinner() {
-        if (player1.getSumCards() > 21 && player2.getSumCards() > 21) {     
+        if (player1.getSumCards() > 21 && player2.getSumCards() > 21) {
             return "Empate! Ambos os jogadores perderam! Suas pontuações ultrapassaram 21.";
         } else if (player1.getSumCards() > 21) {
             return player2.getName() + " venceu com " + player2.getSumCards() + " pontos!";
@@ -346,21 +379,20 @@ public class Game extends BorderPane {
     public void salvarResultado() throws GameSaveResultException {
         String caminhoPastaData = "data";
         String nomeArquivo = "gameResult.csv";
-    
+
         try {
             File pastaData = new File(caminhoPastaData);
             if (!pastaData.exists()) {
                 pastaData.mkdirs();
             }
-    
+
             File arquivo = new File(pastaData, nomeArquivo);
             String caminhoArquivo = arquivo.getAbsolutePath();
-    
+
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))) {
                 String linha = toCSV() + System.lineSeparator();
                 writer.append(linha);
                 System.out.println("Resultado salvo com sucesso em: " + caminhoArquivo);
-                CSVDatabase.adicionarAoHistorico(this);
             } catch (IOException e) {
                 throw new GameSaveResultException("Erro ao salvar resultado.", e);
             }
@@ -377,7 +409,8 @@ public class Game extends BorderPane {
         csv.append(resultado).append(",");
 
         // nome do ganhador ou se deu empate
-        String vencedor = (resultado.contains("Empate")) ? "Empate" : (resultado.contains(player1.getName())) ? player1.getName() : player2.getName();
+        String vencedor = (resultado.contains("Empate")) ? "Empate"
+                : (resultado.contains(player1.getName())) ? player1.getName() : player2.getName();
         csv.append(vencedor).append(",");
 
         // pontuação de cada jogador
@@ -385,7 +418,7 @@ public class Game extends BorderPane {
         csv.append(player2.getSumCards()).append(",");
 
         return csv.toString();
-    } 
+    }
 
     public String getGameResultForTesting() {
         return determineWinner();
@@ -399,11 +432,11 @@ public class Game extends BorderPane {
         return player1;
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public int getRound(){
+    public int getRound() {
         return round;
     }
 }

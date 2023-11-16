@@ -6,6 +6,7 @@
     -fx-alignment: center;
     -fx-text-alignment: center;
 }
+
 .btnStart {
     -fx-background-color: #FF3333;
     -fx-background-radius: 10px;
@@ -17,6 +18,7 @@
     -fx-border-radius: 10px;
     -fx-cursor: hand;
 }
+
 .table {
     -fx-background-color: white;
     -fx-background-radius: 10px;
@@ -25,6 +27,7 @@
     -fx-padding: 10;
     -fx-border-width: 1px;
 }
+
 .btnInstruction {
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -35,6 +38,7 @@
     -fx-border-width: 1px;
     -fx-border-radius: 10px;
 }
+
 .backBtn {
     -fx-background-color: #FF3333;
     -fx-background-radius: 10px;
@@ -46,23 +50,38 @@
     -fx-border-width: 1px;
     -fx-cursor: hand;
 }
+
 .instructionsText {
     -fx-fill: white;
     -fx-font: 16px "Russo One";
     -fx-alignment: center;
 }
+
 .background {
     -fx-background-image: url('../img/backgound.jfif');
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
+
 .authFooter {
     -fx-fill: white;
     -fx-font: 16px "Russo One";
     -fx-alignment: center;
 }
+
 .resulSum {
     -fx-fill: white;
-    -fx-font: 16px "Russo One";
+    -fx-font: 18px "Russo One";
+    -fx-alignment: center;
+}
+
+.playerRound {
+    -fx-fill: #FF3333;
+    -fx-font: 30px "Russo One";
+    -fx-alignment: center;
+}
+.player2Round {
+    -fx-fill: #3333FF;
+    -fx-font: 30px "Russo One";
     -fx-alignment: center;
 }
