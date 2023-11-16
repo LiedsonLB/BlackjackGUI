@@ -68,7 +68,7 @@ O projeto inclui uma suíte de testes unitários escritos com o framework JUnit.
 
 Os testes verificarão se a lógica do jogo está funcionando corretamente, incluindo as regras específicas do blackjack.
 
-### Problemas Identificados no Programa:
+# Problemas Identificados no Programa:
 
 1. **Sobreposição de Cartas ao Clicar em "Ficar" e Atraso na Passagem de Turno**
    - A interface apresenta sobreposição de cartas ao clicar em "Ficar", e a passagem de turno só ocorre quando um sinal específico é recebido ✅.
