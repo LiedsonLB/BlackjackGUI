@@ -134,7 +134,7 @@ public class Game extends BorderPane {
         optionsBtn.setTranslateY(10);
         textoGameInfo.getStyleClass().add("textoGameInfo");
         textoGameInfo.setTranslateY(20);
-        textoGameInfo.setTranslateX(-20);
+        textoGameInfo.setTranslateX(-40);
 
         // alinhamento do textoGameInfo dentro do HBox
         HBox.setHgrow(textoGameInfo, javafx.scene.layout.Priority.ALWAYS);
