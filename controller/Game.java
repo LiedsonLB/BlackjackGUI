@@ -293,7 +293,6 @@ public class Game extends BorderPane {
 
             if (currentPlayer.getSumCards() > 21) {
                 System.out.println("salvando apos 21");
-                salvarResultado();
             }
     
             currentPlayer.setSumCards(num1 + num2);

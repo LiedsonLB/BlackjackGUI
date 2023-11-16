@@ -22,9 +22,6 @@ O código incorpora alguns padrões de projeto fundamentais para promover uma es
 2. **Observer Pattern:**
    - O uso de `IntegerProperty` do JavaFX segue o padrão Observer, permitindo atualizações dinâmicas na interface do usuário com base em alterações nos valores associados.
 
-3. **Composite Pattern:**
-   - A relação entre `Player` e `Card` sugere a aplicação do padrão Composite, onde `Player` representa a parte composta, contendo uma lista de `Card`, as partes individuais.
-
 ### Apresentação de Resultados de Partida
 
 Os resultados das partidas são apresentados de forma clara e informativa. Após o término de uma partida, os jogadores podem visualizar quem venceu, a pontuação final e outros detalhes relevantes.
@@ -93,6 +90,12 @@ Os testes verificarão se a lógica do jogo está funcionando corretamente, incl
 
 8. **Falta de Implementação para Jogar com a CPU**
    - A funcionalidade para jogar contra a CPU ainda não foi implementada ❌.
+
+9. **Aviso de Rodada do jogador**
+   - Ausência de um indicador de jogador ❌.
+
+10. **CSV salvando resultado duas vezes**
+   - está sendo salvo duas vezes no csv ❌.
 
 ## Contribuições
 
