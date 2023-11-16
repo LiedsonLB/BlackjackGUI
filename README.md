@@ -68,6 +68,32 @@ O projeto inclui uma suíte de testes unitários escritos com o framework JUnit.
 
 Os testes verificarão se a lógica do jogo está funcionando corretamente, incluindo as regras específicas do blackjack.
 
+### Problemas Identificados no Programa:
+
+1. **Sobreposição de Cartas ao Clicar em "Ficar" e Atraso na Passagem de Turno**
+   - A interface apresenta sobreposição de cartas ao clicar em "Ficar", e a passagem de turno só ocorre quando um sinal específico é recebido ✅.
+
+2. **Jogador 2 não Recebe Ambas as Cartas ao Reiniciar o Jogo**
+   - Ao reiniciar o jogo, o jogador 2 não está recebendo ambas as cartas e a soma correta não está sendo feita ao clicar em "Jogar de Novo" ✅.
+
+3. **Erro na Contagem da Pontuação - Adição Inadequada de 10 Pontos e Outras Inconsistências**
+   - A pontuação está incorretamente somando mais 10 pontos, além de apresentar outros erros ✅.
+
+4. **Falha na Persistência de Resultados no Histórico**
+   - Os resultados do jogo não estão sendo salvos corretamente no histórico ✅.
+
+5. **Loop Infinito ao Pedir Carta**
+   - A funcionalidade de pedir carta está presa em um loop infinito ✅.
+
+6. **Variação no Valor do Ás em Diferentes Contextos**
+   - O valor do Ás está variando em situações específicas 🔃.
+
+7. **Casos de Teste Ausentes**
+   - Não foram implementados casos de teste para avaliar diferentes cenários do programa ❌.
+
+8. **Falta de Implementação para Jogar com a CPU**
+   - A funcionalidade para jogar contra a CPU ainda não foi implementada ❌.
+
 ## Contribuições
 
 Contribuições são bem-vindas. Para contribuir, siga estas etapas:

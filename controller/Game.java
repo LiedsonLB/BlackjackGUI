@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.ListIterator;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
 
 import db.CSVDatabase;
@@ -32,7 +30,6 @@ public class Game extends BorderPane {
     private Scene scene;
     private Button backBtn;
     private IntegerProperty sumCardsProperty = new SimpleIntegerProperty(0);
-    private StringProperty playerRoundProperty = new SimpleStringProperty("Rodada do jogador 1: ");
     private Text mensage;
     private HBox cardBox;
     private Player player1;
@@ -97,6 +94,7 @@ public class Game extends BorderPane {
         getStyleClass().add("background");
 
         backBtn = new Button("Sair");
+
         StringBuilder convertStringResul = new StringBuilder();
         convertStringResul.append(sumCardsProperty.get());
         String resulString = convertStringResul.toString();
@@ -106,10 +104,6 @@ public class Game extends BorderPane {
         // altera em tempo real o valor da pontuação
         sumCardsProperty.bindBidirectional(new SimpleIntegerProperty(sumCardsProperty.get()));
         resul.textProperty().bind(sumCardsProperty.asString());
-        
-        // Corrigir para vincular uma StringProperty
-        StringBuilder convertStringPlayerRound = new StringBuilder();
-        convertStringPlayerRound.append(playerRoundProperty.get());
 
         HBox optionsBtn = new HBox(10);
         optionsBtn.getChildren().addAll(backBtn, resul);
