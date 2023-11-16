@@ -12,7 +12,7 @@ public class CSVDatabase {
 
     public static void adicionarAoHistorico(Game game) {
         try {
-            File dataFolder = new File("../data");
+            File dataFolder = new File("./data");
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs();
             }
@@ -27,7 +27,7 @@ public class CSVDatabase {
 
     public static ObservableList<GameResult> loadGameResults() {
         ObservableList<GameResult> gameResults = FXCollections.observableArrayList();
-        String caminhoArquivo = "../data/gameResult.csv";
+        String caminhoArquivo = "./data/gameResult.csv";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(caminhoArquivo)))) {
             String line;
