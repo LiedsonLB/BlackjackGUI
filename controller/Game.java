@@ -108,7 +108,7 @@ public class Game extends BorderPane {
         // altera em tempo real o jogador da partida
         StringBuilder convertingStringPlayerRound = new StringBuilder();
         convertingStringPlayerRound.append(currentPlayer.getName());
-        String playerRoundString = "Rodada do " + convertingStringPlayerRound.toString();
+        String playerRoundString = "";
         Text playerRound = new Text(50, 100, playerRoundString);
         playerRound.getStyleClass().add("playerRound");
         DropShadow dropShadow = new DropShadow();
@@ -116,7 +116,7 @@ public class Game extends BorderPane {
         dropShadow.setRadius(3);
         dropShadow.setSpread(10);
         playerRound.setEffect(dropShadow);
-        playerRoundProperty.bindBidirectional(new SimpleStringProperty(currentPlayer.getName()));
+        playerRoundProperty.bindBidirectional(new SimpleStringProperty("Rodada do " + currentPlayer.getName()));
         playerRound.textProperty().bind(playerRoundProperty);
 
         VBox textoGameInfo = new VBox(10);
