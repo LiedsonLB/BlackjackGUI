@@ -95,10 +95,10 @@ Os testes verificarão se a lógica do jogo está funcionando corretamente, incl
    - Ausência de um indicador de jogador 🔃.
 
 10. **CSV salvando resultado duas vezes**
-   - está sendo salvo duas vezes no csv ✅.
+    - está sendo salvo duas vezes no csv ✅.
 
 11. **Separação de lógica e interface do Controller**
-   - separar a interface da lógica no Controller ❌.
+    - separar a interface da lógica no Controller ❌.
 
 ## Contribuições
 
