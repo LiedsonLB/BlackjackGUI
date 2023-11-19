@@ -2,14 +2,18 @@ package view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import db.CSVDatabase;
 import javafx.scene.Scene;
+import javafx.scene.layout.Region;
 
 public class GameHistory extends Pane {
     private TableView<GameResult> tableView;
@@ -35,6 +39,12 @@ public class GameHistory extends Pane {
         tableView.setLayoutY(offsetY);
         tableView.setPrefSize(700, 400);
 
+        // Configura a largura da tabela
+        tableView.setPrefWidth(Region.USE_COMPUTED_SIZE);  // OU USE_PREF_SIZE
+
+        // Configura a expansão horizontal
+        HBox.setHgrow(tableView, Priority.ALWAYS);
+
         // colunas
         TableColumn<GameResult, String> resultadoColumn = new TableColumn<>("Resultado");
         resultadoColumn.setCellValueFactory(new PropertyValueFactory<>("resultado"));
@@ -55,7 +65,6 @@ public class GameHistory extends Pane {
         // Adiciona as colunas
         tableView.getColumns().addAll(resultadoColumn, vencedorColumn, pontuacaoJogador1Column, pontuacaoJogador2Column);
         tableView.getStyleClass().add("table");
-        tableView.setCenterShape(true);
 
         getChildren().addAll(backBtn, tableView);
 

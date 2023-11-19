@@ -10,7 +10,7 @@ Este é um projeto de um jogo de blackjack jogável em Java, com testes unitári
 
 ### Exceções Implementadas
 
-O projeto inclui um tratamento robusto de exceções para lidar com situações imprevistas durante o jogo. Este recurso garante uma experiência de jogo mais estável e confiável.
+O projeto inclui um tratamento de exceções para lidar com situações imprevistas durante o jogo. Este recurso garante uma experiência de jogo mais estável e confiável.
 
 ### Padrões de Projeto
 
@@ -86,13 +86,13 @@ Os testes verificarão se a lógica do jogo está funcionando corretamente, incl
    - O valor do Ás está variando em situações específicas 🔃.
 
 7. **Casos de Teste Ausentes**
-   - Não foram implementados casos de teste para avaliar diferentes cenários do programa ❌.
+   - Não foram implementados casos de teste para avaliar diferentes cenários do programa 🔃.
 
 8. **Falta de Implementação para Jogar com a CPU**
    - A funcionalidade para jogar contra a CPU ainda não foi implementada ❌.
 
 9. **Aviso de Rodada do jogador**
-   - Ausência de um indicador de jogador 🔃.
+   - Ausência de um indicador de jogador ✅.
 
 10. **CSV salvando resultado duas vezes**
     - está sendo salvo duas vezes no csv ✅.

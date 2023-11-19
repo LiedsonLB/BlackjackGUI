@@ -74,8 +74,7 @@
     -fx-font: 18px "Russo One";
     -fx-alignment: center;
 }
-
-.playerRound {
+.player1Round {
     -fx-fill: #FF3333;
     -fx-font: 30px "Russo One";
     -fx-alignment: center;

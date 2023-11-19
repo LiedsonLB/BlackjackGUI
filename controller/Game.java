@@ -42,6 +42,7 @@ public class Game extends BorderPane {
     private int round = 0;
     private HBox actionBtn;
     private CSVDatabase csvDatabase;
+    private Text playerRound;
 
     public Game(Stage menu, Scene scene) {
         this.menu = menu;
@@ -61,6 +62,7 @@ public class Game extends BorderPane {
         player1.setSumCards(0);
         player2.setSumCards(0);
         sumCardsProperty.set(0);
+        playerRoundProperty.set("Rodada do " + currentPlayer.getName());
         actionBtn.setVisible(true);
         round = 1;
 
@@ -97,6 +99,7 @@ public class Game extends BorderPane {
         getStyleClass().add("background");
 
         backBtn = new Button("Sair");
+        backBtn.setTranslateX(-10);
 
         // altera em tempo real o valor da pontuação
         String resulString = new String();
@@ -106,10 +109,8 @@ public class Game extends BorderPane {
         resul.textProperty().bind(sumCardsProperty.asString());
 
         // altera em tempo real o jogador da partida
-        StringBuilder convertingStringPlayerRound = new StringBuilder();
-        convertingStringPlayerRound.append(currentPlayer.getName());
-        String playerRoundString = "";
-        Text playerRound = new Text(50, 100, playerRoundString);
+        String playerRoundString = new String();
+        playerRound = new Text(50, 100, playerRoundString);
         playerRound.getStyleClass().add("playerRound");
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(javafx.scene.paint.Color.WHITE);
@@ -118,6 +119,7 @@ public class Game extends BorderPane {
         playerRound.setEffect(dropShadow);
         playerRoundProperty.bindBidirectional(new SimpleStringProperty("Rodada do " + currentPlayer.getName()));
         playerRound.textProperty().bind(playerRoundProperty);
+        playerRound.getStyleClass().addAll("player1Round");
 
         VBox textoGameInfo = new VBox(10);
         HBox pontuacaoText = new HBox(5);
@@ -243,7 +245,7 @@ public class Game extends BorderPane {
             for (ListIterator<Card> iterator = currentPlayer.getCards().listIterator(); iterator.hasNext();) {
                 Card card = iterator.next();
                 if (newCardValue == cardValues.get(card.getNumber()) && newCard.getNaipe().equals(card.getNaipe())) {
-                    System.out.println("Carta igual");
+                    // verifica se a carta é igual a uma ja apresentada
                     iterator.remove();
                     cardMatched = true;
 
@@ -271,9 +273,8 @@ public class Game extends BorderPane {
             currentPlayer.setSumCards(currentPlayer.getSumCards() + newCardValue);
 
             // Condição caso o Ás passe de 21
-            if (existeAs(currentPlayer) && sumCardsProperty.get() > 11) {
+            if (existeAs(currentPlayer) && sumCardsProperty.get() > 21) {
                 sumCardsProperty.set(sumCardsProperty.get() - 10);
-                System.out.println("Existe um Ás");
             }
 
             if (currentPlayer.getSumCards() > 21) {
@@ -297,7 +298,7 @@ public class Game extends BorderPane {
         return false;
     }
 
-    private void switchPlayer() {
+    public void switchPlayer() {
         currentPlayer = (currentPlayer == player1) ? player2 : player1;
         round++;
 
@@ -330,6 +331,13 @@ public class Game extends BorderPane {
 
             currentPlayer.setSumCards(num1 + num2);
             sumCardsProperty.set(currentPlayer.getSumCards());
+            playerRoundProperty.set("Rodada do " + currentPlayer.getName());
+            
+            if (currentPlayer.getName().equals("Jogador 1")) {
+                playerRound.getStyleClass().add("player1Round");
+            } else {
+                playerRound.getStyleClass().add("player2Round");
+            }
 
             // Adiciona as cartas do jogador 1 ao cardBox
             cardBox.getChildren().addAll(currentPlayer.getCards());
@@ -357,12 +365,14 @@ public class Game extends BorderPane {
 
     private VBox showResetBtn() {
         salvarResultado();
-        System.out.println(toCSV());
+        playerRound.getStyleClass().add("playerRound");
 
         Button jogarNovamenteBtn = new Button("Jogar Novamente");
         jogarNovamenteBtn.getStyleClass().add("btnStart");
 
         jogarNovamenteBtn.setOnAction(e -> {
+            playerRound.getStyleClass().remove("player2Round");
+            playerRound.getStyleClass().add("player1Round");
             resetGame();
             actionBtn.setVisible(true);
         });
@@ -409,8 +419,7 @@ public class Game extends BorderPane {
         csv.append(resultado).append(",");
 
         // nome do ganhador ou se deu empate
-        String vencedor = (resultado.contains("Empate")) ? "Empate"
-                : (resultado.contains(player1.getName())) ? player1.getName() : player2.getName();
+        String vencedor = (resultado.contains("Empate")) ? "Empate" : (resultado.contains(player1.getName())) ? player1.getName() : player2.getName();
         csv.append(vencedor).append(",");
 
         // pontuação de cada jogador
