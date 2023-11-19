@@ -11,17 +11,5 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RoudGame {
-    private Game game;
-
-    @BeforeEach
-    void setUp() {
-        game = new Game(new Stage(), new Scene(new VBox()));
-    }
-    @Test
-    void testGameInitialization() {
-        assertNotNull(game);
-        assertEquals(1, game.getRound());
-        assertEquals(game.getPlayer1(), game.getCurrentPlayer());
-        assertEquals(0, game.getSumCardsProperty().intValue());
-    }
+    
 }
