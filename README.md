@@ -82,20 +82,20 @@ Os testes verificarão se a lógica do jogo está funcionando corretamente, incl
 5. **Loop Infinito ao Pedir Carta**
    - A funcionalidade de pedir carta está presa em um loop infinito ✅.
 
-6. **Variação no Valor do Ás em Diferentes Contextos**
-   - O valor do Ás está variando em situações específicas 🔃.
-
-7. **Casos de Teste Ausentes**
-   - Não foram implementados casos de teste para avaliar diferentes cenários do programa 🔃.
-
-8. **Falta de Implementação para Jogar com a CPU**
-   - A funcionalidade para jogar contra a CPU ainda não foi implementada ❌.
-
-9. **Aviso de Rodada do jogador**
+6. **Aviso de Rodada do jogador**
    - Ausência de um indicador de jogador ✅.
 
-10. **CSV salvando resultado duas vezes**
+7. **CSV salvando resultado duas vezes**
     - está sendo salvo duas vezes no csv ✅.
+
+8. **Variação no Valor do Ás em Diferentes Contextos**
+   - O valor do Ás está variando em situações específicas 🔃.
+
+9. **Casos de Teste Ausentes**
+   - Não foram implementados casos de teste para avaliar diferentes cenários do programa 🔃.
+
+10. **Falta de Implementação para Jogar com a CPU**
+   - A funcionalidade para jogar contra a CPU ainda não foi implementada ❌.
 
 11. **Separação de lógica e interface do Controller**
     - separar a interface da lógica no Controller ❌.
